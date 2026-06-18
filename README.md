@@ -1,0 +1,132 @@
+# CFAnalytics - User Behavior Analytics Platform
+
+CFAnalytics is a self-hosted, lightweight user analytics platform designed to capture and visualize real-time visitor interactions. It tracks page views, scroll depths, page load speeds, and click coordinates, consolidating them into an interactive Next.js dashboard featuring session timelines, responsive heatmaps, and automated heuristic UX advice.
+
+This project was built as a Full Stack Developer technical assessment for **CausalFunnel**.
+
+---
+
+## 🚀 Key Capabilities
+
+1. **Vanilla JS Spy Tracker (`tracker/tracker.js`)**:
+   - Zero-dependency script embeddable on any webpage.
+   - Automatically initializes session IDs inside `sessionStorage` (persistent across tabs/page refreshes during a session).
+   - Records page views, click positions, scroll depths, and performance load speed (via Navigation Timing API).
+   
+2. **Robust Backend REST API (`backend/`)**:
+   - Node.js + Express with MongoDB Atlas database models.
+   - Highly scalable event ingestion controller allowing batch event insertion.
+   - Aggregated reporting APIs for sessions, session timelines, spatial click density maps, and heuristic insights.
+
+3. **Multi-page Demo Site (`demo-site/`)**:
+   - A modern 3-page site (Home, About, Contact) pre-integrated with the tracking script.
+   - Designed with deep scroll-depth milestones and interactive elements (forms, buttons) to generate authentic telemetry data.
+
+4. **Next.js 14 Dashboard (`frontend/`)**:
+   - Clean, futuristic dark-theme interface.
+   - **Metrics Panel**: High-level counters for total sessions, total clicks, browser/OS configurations, and average duration.
+   - **Chronological User Journey**: Interactive sidebar drawer presenting an event-by-event timeline for any selected session.
+   - **Visual Click Heatmap**: Overlays registered coordinates onto a responsive skeleton representing your web pages.
+   - **AI Design Advisor**: Algorithmic heuristic analysis flagging high page load latency, low element engagement, or poor scroll depths.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Tracker**: Vanilla JavaScript (ES6)
+- **Backend API**: Node.js, Express, Mongoose
+- **Database**: MongoDB Atlas
+- **Dashboard Frontend**: Next.js 14 (App Router), TailwindCSS, Lucide React (icons)
+
+---
+
+## 📁 Project Structure
+
+```text
+user-analytics-platform/
+│
+├── backend/                    # Node.js + Express Server
+│   ├── config/db.js            # MongoDB Mongoose Configuration
+│   ├── controllers/            # Event & aggregation API logic
+│   ├── models/Event.js         # Mongoose Event schema
+│   ├── routes/eventRoutes.js   # API route definitions
+│   ├── .env.example            # Environment variables template
+│   └── server.js               # Ingestion entry point
+│
+├── tracker/
+│   └── tracker.js              # Vanilla JS tracking script
+│
+├── demo-site/                  # Multi-page test website
+│   ├── css/style.css           # Premium demo site layout
+│   ├── index.html              # Home page
+│   ├── about.html              # Scroll depth test page
+│   └── contact.html            # Interactive contact form
+│
+└── frontend/                   # Next.js 14 Dashboard App
+    ├── src/
+    │   ├── app/                # App Router pages (Dashboard, Heatmap, Insights)
+    │   ├── components/         # Reusable dashboard widgets
+    │   └── utils/api.js        # Axios/Fetch API client
+    └── package.json
+```
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Database Configuration
+1. Create a free cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+2. Click **Connect** -> **Connect your application** and copy your MongoDB connection string.
+3. Open `backend/.env` and update `MONGODB_URI` with your connection string:
+   ```env
+   PORT=5000
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxx.mongodb.net/analytics?retryWrites=true&w=majority
+   ```
+
+### 2. Run the Backend API
+Navigate to the `backend` directory, install packages, and start the ingestion server:
+```bash
+cd backend
+npm install
+npm start
+```
+The console will output:
+```text
+Server is running on port 5000
+MongoDB Connected: cluster0.xxxx.mongodb.net
+```
+
+### 3. Run the Next.js Dashboard
+Open a new terminal tab, navigate to the `frontend` folder, install packages, and start the development server:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Open your browser and navigate to `http://localhost:3000` to access the dashboard.
+
+### 4. Trigger Telemetry Data (Demo Site)
+1. Open the file `demo-site/index.html` directly in your browser (double-click the file or use a local server like Live Server in VS Code).
+2. Click on headings, buttons, and links.
+3. Navigate to **About** and scroll down to the bottom (this registers scroll depth milestones).
+4. Go to **Contact**, click around the form inputs, and hit the Submit button.
+5. Go back to your Dashboard at `http://localhost:3000` and click **Sync Database** or **Refresh Coordinates**. You will immediately see your session, click heatmaps, and design alerts appear in real-time!
+
+---
+
+## 💡 Important Architectural Decisions
+
+### 1. Click Normalization & Responsive Heatmaps
+Standard click-tracking systems suffer from **coordinate shifting**: a click at `(960, 400)` represents the dead center on a 1920px width monitor, but lands completely off-screen on a mobile device. 
+To resolve this:
+- The `tracker.js` captures both absolute click coordinates (`x`, `y`) and the viewport dimensions at the time of interaction (`window_width`, `window_height`).
+- The frontend computes relative percentages: `left: (click.x / click.window_width) * 100` and `top: (click.y / click.window_height) * 100`.
+- The dashboard overlays dots on the mockup using these percentage values, ensuring click alignment is mathematically preserved regardless of browser scaling.
+
+### 2. Scroll Depth Milestones (Debounced)
+Tracking scrolls on every pixel leads to excessive database writes and server bottlenecks. To optimize performance:
+- The tracker monitors scroll movements, but only triggers events at key thresholds: **25%**, **50%**, **75%**, and **100%**.
+- Each milestone is sent exactly once per page view, minimizing bandwidth and ensuring a clean event count in MongoDB.
+
+### 3. Session Isolation
+We utilize browser `sessionStorage` rather than `localStorage` to store the unique `session_id`. This aligns with industry standards, ensuring that when a visitor closes their browser tab, their session automatically terminates. If they open the site in a new tab, a brand-new session lifecycle begins.
