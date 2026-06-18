@@ -1,6 +1,6 @@
 (function () {
   // Configurable API endpoint
-  const API_ENDPOINT = "http://localhost:5000/api/events";
+  const API_ENDPOINT = "https://user-analytics-platform.onrender.com/api/events";
 
   // Helper to generate a simple unique ID
   function generateSessionId() {
