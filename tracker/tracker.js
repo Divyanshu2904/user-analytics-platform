@@ -71,6 +71,7 @@
       delete data.is_unloading;
       const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
       navigator.sendBeacon(API_ENDPOINT, blob);
+      console.log("Event sent (beacon): " + data.event_type);
     } else {
       delete data.is_unloading;
       fetch(API_ENDPOINT, {
@@ -79,7 +80,11 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      }).catch((err) => console.warn("Analytics tracking failed:", err));
+      })
+      .then(() => {
+        console.log("Event sent: " + data.event_type);
+      })
+      .catch((err) => console.warn("Analytics tracking failed:", err));
     }
   }
 
