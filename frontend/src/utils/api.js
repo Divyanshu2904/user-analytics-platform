@@ -1,4 +1,15 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://user-analytics-platform.onrender.com/api";
+const getApiBaseUrl = () => {
+  if (typeof window !== "undefined") {
+    // If running locally, connect to local backend on port 5000
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      return "http://localhost:5000/api";
+    }
+  }
+  // Deployed / production URL fallback
+  return process.env.NEXT_PUBLIC_API_URL || "https://user-analytics-platform.onrender.com/api";
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export async function fetchSessions() {
   const res = await fetch(`${API_BASE_URL}/sessions`, { cache: "no-store" });

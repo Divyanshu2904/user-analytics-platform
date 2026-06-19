@@ -257,7 +257,7 @@ export default function DashboardPage() {
                 <button
                   key={tab.value}
                   onClick={() => setDeviceFilter(tab.value)}
-                  className={`px-3-5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     deviceFilter === tab.value 
                       ? "bg-blue-600 text-white shadow-sm shadow-blue-600/10" 
                       : "text-slate-500 hover:text-slate-800"
