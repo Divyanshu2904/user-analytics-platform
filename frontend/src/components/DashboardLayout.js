@@ -46,7 +46,7 @@ export default function DashboardLayout({ children }) {
         <img 
           src="/logo.png" 
           alt="CausalFunnel Logo" 
-          className="h-10 w-10 rounded-xl shadow-md object-contain border border-slate-100" 
+          className="h-10 w-10 rounded-xl object-contain shadow-sm"
         />
         <div>
           <h1 className="font-extrabold text-lg leading-tight tracking-tight text-slate-800">
@@ -145,7 +145,7 @@ export default function DashboardLayout({ children }) {
             <img 
               src="/logo.png" 
               alt="CausalFunnel Logo" 
-              className="h-8 w-8 rounded-lg object-contain border border-slate-100" 
+              className="h-8 w-8 rounded-lg object-contain"
             />
             <span className="font-extrabold text-sm text-slate-800">
               Causal<span className="text-blue-600">Funnel</span>

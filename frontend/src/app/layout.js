@@ -2,13 +2,8 @@ import DashboardLayout from "@/components/DashboardLayout";
 import "./globals.css";
 
 export const metadata = {
-  title: "CausalFunnel | Analytics Platform",
+  title: "CausalFunnel | User Behavior Analytics",
   description: "Advanced visitor journey, visual heatmaps, and design optimization suite.",
-  icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
-  }
 };
 
 export default function RootLayout({ children }) {
