@@ -22,6 +22,15 @@ import {
 } from "lucide-react";
 
 export default function DashboardPage() {
+  const getCleanPageName = (path) => {
+    if (!path) return "";
+    const clean = path.replace(".html", "").replace("/", "").trim().toLowerCase();
+    if (clean === "index" || clean === "") return "Home";
+    if (clean === "about") return "About";
+    if (clean === "contact") return "Contact";
+    return clean.charAt(0).toUpperCase() + clean.slice(1);
+  };
+
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
   const [selectedSessionEvents, setSelectedSessionEvents] = useState([]);
@@ -322,7 +331,7 @@ export default function DashboardPage() {
                             </span>
                             <span className="text-[10px] text-slate-400 font-semibold select-none flex gap-1 items-center">
                               <Eye className="h-3 w-3 inline text-emerald-500" />
-                              {session.pages_visited.length} page(s) visited: {session.pages_visited.slice(0, 2).map(p => p.split('/').pop()).join(", ")}
+                              {session.pages_visited.length} page(s) visited: {session.pages_visited.slice(0, 2).map(p => getCleanPageName(p)).join(", ")}
                               {session.pages_visited.length > 2 && "..."}
                             </span>
                           </div>

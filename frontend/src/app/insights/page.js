@@ -109,7 +109,7 @@ export default function InsightsPage() {
           {error}
         </div>
       ) : (
-        <div className="max-w-4xl space-y-6">
+        <div className="w-full space-y-6">
           {/* Summary Box */}
           <div className="bg-gradient-to-tr from-blue-50/70 to-indigo-50/30 border border-blue-100/50 p-6 rounded-2xl flex items-start gap-4 shadow-sm">
             <div className="p-3 bg-blue-500/10 rounded-xl text-blue-600 flex-shrink-0">

@@ -11,6 +11,15 @@ import {
 export default function SessionTimeline({ session, events, onClose }) {
   if (!session || !events) return null;
 
+  const getCleanPageName = (path) => {
+    if (!path) return "";
+    const clean = path.replace(".html", "").replace("/", "").trim().toLowerCase();
+    if (clean === "index" || clean === "") return "Home";
+    if (clean === "about") return "About";
+    if (clean === "contact") return "Contact";
+    return clean.charAt(0).toUpperCase() + clean.slice(1);
+  };
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleTimeString([], { 
       hour: '2-digit', 
@@ -39,19 +48,19 @@ export default function SessionTimeline({ session, events, onClose }) {
       case "page_view":
         return (
           <span>
-            Visited page <code className="text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded font-mono text-[11px] font-semibold">{event.page_url}</code>
+            Visited page <code className="text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded font-mono text-[11px] font-semibold">{getCleanPageName(event.page_url)}</code>
           </span>
         );
       case "click":
         return (
           <span>
-            Clicked coordinate <span className="text-blue-600 font-bold font-mono">({event.x}px, {event.y}px)</span> on <code className="text-slate-600 font-mono text-[11px]">{event.page_url}</code>
+            Clicked coordinate <span className="text-blue-600 font-bold font-mono">({event.x}px, {event.y}px)</span> on <code className="text-slate-600 font-mono text-[11px]">{getCleanPageName(event.page_url)}</code>
           </span>
         );
       case "scroll":
         return (
           <span>
-            Scrolled <span className="text-amber-600 font-bold font-mono">{event.scroll_depth}%</span> of page <code className="text-slate-600 font-mono text-[11px]">{event.page_url}</code>
+            Scrolled <span className="text-amber-600 font-bold font-mono">{event.scroll_depth}%</span> of page <code className="text-slate-600 font-mono text-[11px]">{getCleanPageName(event.page_url)}</code>
           </span>
         );
       case "performance":
