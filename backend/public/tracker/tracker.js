@@ -159,4 +159,31 @@
       }
     });
   });
+
+  // Mobile menu toggle DOM helper for demo-site navigation
+  function setupMobileMenu() {
+    const toggleBtn = document.querySelector(".mobile-menu-toggle");
+    const navMenu = document.querySelector("nav");
+    if (toggleBtn && navMenu) {
+      toggleBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        navMenu.classList.toggle("active");
+        toggleBtn.classList.toggle("open");
+      });
+      
+      // Close dropdown if user clicks outside of it
+      document.addEventListener("click", function (e) {
+        if (!navMenu.contains(e.target) && !toggleBtn.contains(e.target)) {
+          navMenu.classList.remove("active");
+          toggleBtn.classList.remove("open");
+        }
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupMobileMenu);
+  } else {
+    setupMobileMenu();
+  }
 })();
