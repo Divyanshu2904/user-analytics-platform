@@ -9,7 +9,17 @@ const getApiBaseUrl = () => {
   return process.env.NEXT_PUBLIC_API_URL || "https://user-analytics-platform.onrender.com/api";
 };
 
-const API_BASE_URL = getApiBaseUrl();
+let rawApiUrl = getApiBaseUrl();
+if (rawApiUrl) {
+  rawApiUrl = rawApiUrl.trim();
+  if (rawApiUrl.endsWith("/")) {
+    rawApiUrl = rawApiUrl.slice(0, -1);
+  }
+  if (!rawApiUrl.endsWith("/api")) {
+    rawApiUrl = rawApiUrl + "/api";
+  }
+}
+const API_BASE_URL = rawApiUrl;
 
 export async function fetchSessions() {
   const res = await fetch(`${API_BASE_URL}/sessions`, { cache: "no-store" });
