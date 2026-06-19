@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Demo Site | Contact Us</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-glow-alt"></div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span>CF</span>Analytics
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <span class="badge">Get in Touch</span>
+        <h2 style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem;">Send a Message</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.5rem;">Interact with the input fields and click submit to trigger coordinate tracking.</p>
+      </div>
+
+      <form id="contactForm" onsubmit="event.preventDefault(); alert('Message logged in local simulation (and click coordinates tracked)!');">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" class="form-control" placeholder="Inquiry about Analytics" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label for="message">Your Message</label>
+          <textarea id="message" class="form-control" rows="5" placeholder="Write your feedback here..." style="resize: none;" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 CFAnalytics Platform Demo. Built for CausalFunnel Assignment.</p>
+  </footer>
+
+  <!-- User Analytics Tracker Script -->
+  <script src="../tracker/tracker.js"></script>
+</body>
+</html>

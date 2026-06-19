@@ -26,6 +26,7 @@ export default function DashboardPage() {
   const [selectedSession, setSelectedSession] = useState(null);
   const [selectedSessionEvents, setSelectedSessionEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [deviceFilter, setDeviceFilter] = useState("all");
@@ -34,6 +35,7 @@ export default function DashboardPage() {
 
   const loadData = async (showSilently = false) => {
     if (!showSilently) setLoading(true);
+    setIsSyncing(true);
     try {
       const data = await fetchSessions();
       setSessions(data);
@@ -43,6 +45,7 @@ export default function DashboardPage() {
       setError("Failed to connect to the backend server. Is it running on Render/locally?");
     } finally {
       if (!showSilently) setLoading(false);
+      setIsSyncing(false);
     }
   };
 
@@ -118,9 +121,9 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex-1 flex overflow-hidden">
+    <div className="w-full flex flex-col md:flex-row min-h-screen">
       {/* Dashboard Main Panel */}
-      <div className="flex-1 flex flex-col overflow-y-auto p-4 md:p-8">
+      <div className="flex-1 p-4 md:p-8">
         
         {/* Top Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
@@ -145,7 +148,7 @@ export default function DashboardPage() {
               onClick={() => loadData(false)}
               className="flex items-center gap-2 text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-sm px-4 py-2.5 rounded-xl transition-all cursor-pointer"
             >
-              <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-blue-500" : "text-slate-400"}`} />
+              <RefreshCw className={`h-3.5 w-3.5 ${isSyncing ? "animate-spin text-blue-500" : "text-slate-400"}`} />
               Sync Database
             </button>
           </div>
@@ -205,25 +208,23 @@ export default function DashboardPage() {
           {/* Card 4: Device breakdown */}
           <div className="bg-white border border-slate-100/80 shadow-sm rounded-2xl p-6 hover:shadow-md transition-shadow">
             <div className="flex justify-between items-start mb-3">
-              <div className="p-3 bg-emerald-50 rounded-xl text-emerald-600">
-                <Laptop className="h-5 w-5" />
-              </div>
               <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Devices</span>
             </div>
-            <div className="flex items-center gap-3.5 mt-2">
-              <div className="flex flex-col">
+            <div className="grid grid-cols-3 gap-2 mt-2">
+              <div className="flex flex-col items-center p-2 rounded-xl bg-slate-50 border border-slate-100/50">
+                <Laptop className="h-4.5 w-4.5 text-blue-500 mb-1" />
                 <span className="text-sm font-extrabold text-slate-800">{desktopCount}</span>
-                <span className="text-[9px] text-slate-400 uppercase font-bold">Desktop</span>
+                <span className="text-[8px] text-slate-400 font-bold uppercase mt-0.5">Desktop</span>
               </div>
-              <div className="h-8 w-px bg-slate-100"></div>
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center p-2 rounded-xl bg-slate-50 border border-slate-100/50">
+                <Smartphone className="h-4.5 w-4.5 text-cyan-500 mb-1" />
                 <span className="text-sm font-extrabold text-slate-800">{mobileCount}</span>
-                <span className="text-[9px] text-slate-400 uppercase font-bold">Mobile</span>
+                <span className="text-[8px] text-slate-400 font-bold uppercase mt-0.5">Mobile</span>
               </div>
-              <div className="h-8 w-px bg-slate-100"></div>
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center p-2 rounded-xl bg-slate-50 border border-slate-100/50">
+                <Tablet className="h-4.5 w-4.5 text-amber-500 mb-1" />
                 <span className="text-sm font-extrabold text-slate-800">{tabletCount}</span>
-                <span className="text-[9px] text-slate-400 uppercase font-bold">Tablet</span>
+                <span className="text-[8px] text-slate-400 font-bold uppercase mt-0.5">Tablet</span>
               </div>
             </div>
           </div>
@@ -271,9 +272,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Sessions Table Panel */}
-        <div className="bg-white border border-slate-100/80 shadow-sm rounded-2xl overflow-hidden flex-1 flex flex-col">
-          <div className="overflow-x-auto flex-1">
-            <table className="w-full border-collapse text-left">
+        <div className="bg-white border border-slate-100/80 shadow-sm rounded-2xl overflow-hidden w-full">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full border-collapse text-left min-w-[700px]">
               <thead>
                 <tr className="border-b border-slate-100 bg-slate-50/50">
                   <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Session Identifier</th>

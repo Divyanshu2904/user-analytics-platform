@@ -254,7 +254,7 @@ export default function HeatmapPage() {
                 { label: "About Page", path: "/about.html" },
                 { label: "Contact Page", path: "/contact.html" }
               ].map((p) => (
-                <button
+                 <button
                   key={p.path}
                   onClick={() => setSelectedPage(p.path)}
                   className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
@@ -264,7 +264,9 @@ export default function HeatmapPage() {
                   }`}
                 >
                   {p.label}
-                  <span className="block text-[9px] text-slate-400 font-mono mt-0.5">{p.path}</span>
+                  <span className="block text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
+                    {p.path === "/index.html" ? "Home" : p.path === "/about.html" ? "About" : "Contact"}
+                  </span>
                 </button>
               ))}
             </div>

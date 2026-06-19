@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Demo Site | About Us</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-glow-alt"></div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span>CF</span>Analytics
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width: 800px; margin: 4rem auto; padding: 0 2rem;">
+    <section style="margin-bottom: 4rem; text-align: center;">
+      <span class="badge">Who We Are</span>
+      <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">We Analyze <span>Behavioral Data</span></h1>
+      <p style="font-size: 1.2rem; color: var(--text-muted);">This page contains rich scrollable content to demonstrate the scroll depth mapping feature of our analytics script.</p>
+    </section>
+
+    <!-- Scroll testing section -->
+    <section style="margin-bottom: 4rem;">
+      <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem; color: var(--accent-color);">1. Session Orchestration</h2>
+      <p style="margin-bottom: 1.5rem; color: var(--text-muted); font-size: 1.05rem;">When a user lands on this page, the analytics script instantiates a dynamic session ID stored inside the browser's storage window. This session context links all sequential actions, page visits, clicks, and scrolls into a single unified journey.</p>
+      <p style="color: var(--text-muted); font-size: 1.05rem;">This helps organizations trace user friction points. For instance, did they read our description, or did they bounce immediately? Scroll depth helps solve this question.</p>
+    </section>
+
+    <section style="margin-bottom: 4rem; padding-top: 100px;">
+      <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem; color: var(--accent-color);">2. Heatmap Resolution Normalization</h2>
+      <p style="margin-bottom: 1.5rem; color: var(--text-muted); font-size: 1.05rem;">A major bug in simple analytics tools is coordinate shifting. A click at (500, 300) on a 1920px width monitor lands in a completely different element than a click at (500, 300) on a 1366px laptop screen.</p>
+      <p style="color: var(--text-muted); font-size: 1.05rem;">Our backend saves the client screen width and height during the click. The Next.js dashboard overlays these coordinates using responsive percentage-based scaling, preserving position visual accuracy across all resolutions.</p>
+    </section>
+
+    <section style="margin-bottom: 4rem; padding-top: 150px;">
+      <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem; color: var(--accent-color);">3. Advanced Algorithmic Insights</h2>
+      <p style="margin-bottom: 1.5rem; color: var(--text-muted); font-size: 1.05rem;">By processing logs in MongoDB, our platform runs real-time aggregation queries. If scroll depths are short, it marks page alerts. If page load delays exceed 1.5 seconds, it flags it as a high latency concern.</p>
+      <p style="color: var(--text-muted); font-size: 1.05rem;">Scroll down to the bottom to register 100% scroll depth in the dashboard database!</p>
+    </section>
+
+    <section style="margin-bottom: 4rem; padding-top: 200px; text-align: center;">
+      <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--accent-color);">Success! Scroll complete.</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem;">You have scrolled to the bottom of the page. This triggers the 100% scroll depth metric event.</p>
+      <a href="contact.html" class="btn btn-primary">Try Contact Form</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 CFAnalytics Platform Demo. Built for CausalFunnel Assignment.</p>
+  </footer>
+
+  <!-- User Analytics Tracker Script -->
+  <script src="../tracker/tracker.js"></script>
+</body>
+</html>
