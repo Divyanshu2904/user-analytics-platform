@@ -17,6 +17,7 @@ import {
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = [
     {
@@ -39,73 +40,100 @@ export default function DashboardLayout({ children }) {
     }
   ];
 
-  const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-white flex-1 py-6 px-5 border-r border-slate-100 shadow-sm">
-      {/* Brand Logo */}
-      <div className="flex items-center gap-3 px-2 mb-8">
-        <img 
-          src="/logo.png" 
-          alt="CausalFunnel Logo" 
-          className="h-10 w-10 rounded-xl object-contain shadow-sm"
-        />
-        <div>
-          <h1 className="font-extrabold text-lg leading-tight tracking-tight text-slate-800">
-            Causal<span className="text-blue-600">Funnel</span>
-          </h1>
-          <p className="text-[10px] text-slate-400 tracking-wider uppercase font-semibold">
-            Analytics Platform
-          </p>
+  const SidebarContent = ({ forceOpen = false } = {}) => {
+    const collapsed = !forceOpen && isCollapsed;
+
+    return (
+      <div className={`flex flex-col h-full bg-white py-6 border-r border-slate-100 shadow-sm transition-all duration-300 ${
+        collapsed ? "px-3" : "px-5"
+      }`}>
+        {/* Brand Logo - Toggle collapse on click */}
+        <div 
+          className="flex items-center gap-3 px-2 mb-8 cursor-pointer select-none"
+          onClick={() => !forceOpen && setIsCollapsed(!isCollapsed)}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          <img 
+            src="/logo.png" 
+            alt="CausalFunnel Logo" 
+            className="h-10 w-10 rounded-xl object-contain shadow-sm transform hover:scale-105 transition-transform duration-200"
+          />
+          {!collapsed && (
+            <div className="transition-all duration-200">
+              <h1 className="font-extrabold text-lg leading-tight tracking-tight text-slate-800">
+                Causal<span className="text-blue-600">Funnel</span>
+              </h1>
+              <p className="text-[10px] text-slate-400 tracking-wider uppercase font-semibold">
+                Analytics Platform
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Navigation Section */}
+        <div className="space-y-1 flex-1">
+          {!collapsed && (
+            <p className="px-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
+              Navigation
+            </p>
+          )}
+          <nav className="space-y-1">
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  onClick={() => setIsMobileOpen(false)}
+                  className={`flex items-center justify-between group rounded-xl transition-all duration-200 ${
+                    collapsed ? "p-3 justify-center" : "px-4 py-3.5"
+                  } ${
+                    isActive
+                      ? "bg-blue-50/70 text-blue-600 border border-blue-100/50 shadow-sm"
+                      : "text-slate-500 hover:text-slate-900 hover:bg-slate-50 border border-transparent"
+                  }`}
+                  title={collapsed ? item.name : undefined}
+                >
+                  <div className="flex items-center gap-3.5">
+                    <div className={`p-1.5 rounded-lg transition-colors duration-200 ${
+                      isActive ? "bg-blue-500/10 text-blue-600" : "bg-slate-100 text-slate-400 group-hover:text-slate-600"
+                    }`}>
+                      <Icon className="h-4.5 w-4.5" />
+                    </div>
+                    {!collapsed && (
+                      <div className="transition-all duration-200">
+                        <p className="text-sm font-semibold tracking-wide">{item.name}</p>
+                        <p className="text-[10px] text-slate-400 font-medium group-hover:text-slate-500 transition-colors">
+                          {item.description}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  {!collapsed && (
+                    <ChevronRight className={`h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                      isActive ? "text-blue-500 translate-x-0 opacity-100" : "text-slate-300 group-hover:translate-x-1"
+                    }`} />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
       </div>
-
-      {/* Navigation Section */}
-      <div className="space-y-1 flex-1">
-        <p className="px-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
-          Navigation
-        </p>
-        <nav className="space-y-1">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                onClick={() => setIsMobileOpen(false)}
-                className={`flex items-center justify-between group px-4 py-3.5 rounded-xl transition-all duration-200 ${
-                  isActive
-                    ? "bg-blue-50/70 text-blue-600 border border-blue-100/50 shadow-sm"
-                    : "text-slate-500 hover:text-slate-900 hover:bg-slate-50 border border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className={`p-1.5 rounded-lg transition-colors duration-200 ${
-                    isActive ? "bg-blue-500/10 text-blue-600" : "bg-slate-100 text-slate-400 group-hover:text-slate-600"
-                  }`}>
-                    <Icon className="h-4.5 w-4.5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold tracking-wide">{item.name}</p>
-                    <p className="text-[10px] text-slate-400 font-medium group-hover:text-slate-500 transition-colors">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-                <ChevronRight className={`h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-200 ${
-                  isActive ? "text-blue-500 translate-x-0 opacity-100" : "text-slate-300 group-hover:translate-x-1"
-                }`} />
-              </Link>
-            );
-          })}
-        </nav>
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-slate-50 text-slate-800 relative">
+    <div className="flex h-screen w-full overflow-hidden bg-white text-slate-800 relative">
+      {/* Premium CausalFunnel background blue/indigo glow mesh styles */}
+      <div className="absolute top-[-10%] left-[20%] w-[600px] h-[600px] rounded-full bg-blue-500/[0.03] blur-[120px] pointer-events-none z-0" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-500/[0.03] blur-[100px] pointer-events-none z-0" />
+
       {/* 1. Desktop Sidebar (md:flex) */}
-      <aside className="hidden md:flex w-72 flex-col flex-shrink-0">
+      <aside className={`hidden md:flex flex-col flex-shrink-0 transition-all duration-300 z-10 ${
+        isCollapsed ? "w-20" : "w-72"
+      }`}>
         <SidebarContent />
       </aside>
 
@@ -132,13 +160,13 @@ export default function DashboardLayout({ children }) {
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <SidebarContent />
+            <SidebarContent forceOpen={true} />
           </div>
         </div>
       )}
 
       {/* 3. Main Viewport Panel */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto relative bg-[#f8fafc]">
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto relative bg-transparent z-10">
         {/* Mobile Top Navigation Header */}
         <header className="flex md:hidden items-center justify-between px-5 py-4 bg-white border-b border-slate-100">
           <Link href="/" className="flex items-center gap-2.5">
