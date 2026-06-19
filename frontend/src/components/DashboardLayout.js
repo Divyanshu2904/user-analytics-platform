@@ -43,9 +43,11 @@ export default function DashboardLayout({ children }) {
     <div className="flex flex-col h-full bg-white flex-1 py-6 px-5 border-r border-slate-100 shadow-sm">
       {/* Brand Logo */}
       <div className="flex items-center gap-3 px-2 mb-8">
-        <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-md shadow-blue-500/10">
-          <Activity className="h-5 w-5 text-white animate-pulse" />
-        </div>
+        <img 
+          src="/logo.png" 
+          alt="CausalFunnel Logo" 
+          className="h-10 w-10 rounded-xl shadow-md object-contain border border-slate-100" 
+        />
         <div>
           <h1 className="font-extrabold text-lg leading-tight tracking-tight text-slate-800">
             Causal<span className="text-blue-600">Funnel</span>
@@ -140,9 +142,11 @@ export default function DashboardLayout({ children }) {
         {/* Mobile Top Navigation Header */}
         <header className="flex md:hidden items-center justify-between px-5 py-4 bg-white border-b border-slate-100">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
-              <Activity className="h-4 w-4 text-white" />
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="CausalFunnel Logo" 
+              className="h-8 w-8 rounded-lg object-contain border border-slate-100" 
+            />
             <span className="font-extrabold text-sm text-slate-800">
               Causal<span className="text-blue-600">Funnel</span>
             </span>
