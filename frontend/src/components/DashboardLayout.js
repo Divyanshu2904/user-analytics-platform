@@ -43,9 +43,15 @@ export default function DashboardLayout({ children }) {
     <div className="flex flex-col h-full bg-white flex-1 py-6 px-5 border-r border-slate-100 shadow-sm">
       {/* Brand Logo */}
       <div className="flex items-center gap-3 px-2 mb-8">
-        <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-md shadow-blue-500/10">
-          <Activity className="h-5 w-5 text-white animate-pulse" />
-        </div>
+        <img 
+          src="/logo.png" 
+          className="h-10 w-10 object-contain rounded-full border border-slate-100 shadow-sm" 
+          alt="CausalFunnel Logo"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 12h-4l-3 9L9 3l-3 9H2'/%3E%3C/svg%3E";
+          }}
+        />
         <div>
           <h1 className="font-extrabold text-lg leading-tight tracking-tight text-slate-800">
             Causal<span className="text-blue-600">Funnel</span>
@@ -99,27 +105,18 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Integration Widget */}
-      <div className="pt-4 border-t border-slate-100 mt-auto">
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col gap-2.5">
-          <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-[10px] font-bold text-slate-600 uppercase tracking-wider">
-              Telemetry Active
-            </span>
-          </div>
-          <p className="text-[10px] text-slate-400 leading-relaxed font-medium">
-            Ingestion endpoints pointing to Render API: <code className="text-blue-600 font-mono text-[9px]">user-analytics-platform.onrender.com</code>.
-          </p>
-        </div>
+      <div className="pt-4 border-t border-slate-100 mt-auto flex items-center justify-between px-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+        <span className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+          System Connected
+        </span>
+        <span>v1.0.0</span>
       </div>
     </div>
   );
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-slate-50 text-slate-800 relative">
+    <div className="flex h-screen w-full overflow-hidden bg-gradient-to-br from-[#ffffff] via-[#f8fafc] to-[#e8efff] text-slate-800 relative">
       {/* 1. Desktop Sidebar (md:flex) */}
       <aside className="hidden md:flex w-72 flex-col flex-shrink-0">
         <SidebarContent />
@@ -154,13 +151,19 @@ export default function DashboardLayout({ children }) {
       )}
 
       {/* 3. Main Viewport Panel */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto relative bg-[#f8fafc]">
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto relative bg-gradient-to-br from-white/95 via-[#f8fafc]/80 to-[#eef4ff]/50">
         {/* Mobile Top Navigation Header */}
         <header className="flex md:hidden items-center justify-between px-5 py-4 bg-white border-b border-slate-100">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
-              <Activity className="h-4 w-4 text-white" />
-            </div>
+            <img 
+              src="/logo.png" 
+              className="h-8 w-8 object-contain rounded-full border border-slate-100" 
+              alt="CausalFunnel Logo"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 12h-4l-3 9L9 3l-3 9H2'/%3E%3C/svg%3E";
+              }}
+            />
             <span className="font-extrabold text-sm text-slate-800">
               Causal<span className="text-blue-600">Funnel</span>
             </span>

@@ -247,7 +247,7 @@ export default function DashboardPage() {
               <SlidersHorizontal className="h-3.5 w-3.5" />
               Device:
             </span>
-            <div className="flex p-1 bg-slate-50 border border-slate-200 rounded-xl">
+            <div className="flex p-1 bg-slate-100 border border-slate-200 rounded-xl gap-1">
               {[
                 { label: "All", value: "all" },
                 { label: "Desktop", value: "desktop" },
@@ -257,10 +257,10 @@ export default function DashboardPage() {
                 <button
                   key={tab.value}
                   onClick={() => setDeviceFilter(tab.value)}
-                  className={`px-3-5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     deviceFilter === tab.value 
-                      ? "bg-blue-600 text-white shadow-sm shadow-blue-600/10" 
-                      : "text-slate-500 hover:text-slate-800"
+                      ? "bg-blue-600 text-white shadow-sm" 
+                      : "text-slate-500 hover:text-slate-800 hover:bg-slate-200/50"
                   }`}
                 >
                   {tab.label}
