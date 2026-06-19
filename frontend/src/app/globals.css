@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #090d16;
-  --foreground: #f8fafc;
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
   --accent: #06b6d4;
-  --card-bg: #111827;
-  --card-border: #1f2937;
+  --card-bg: #ffffff;
+  --card-border: #f1f5f9;
 }
 
 body {
@@ -24,16 +24,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f2937;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: #94a3b8;
 }
 
 /* Background Gradients */
@@ -41,7 +41,7 @@ body {
   position: absolute;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(9, 13, 22, 0) 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.04) 0%, rgba(248, 250, 252, 0) 70%);
   top: -100px;
   left: -100px;
   z-index: -1;
@@ -52,28 +52,43 @@ body {
   position: absolute;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, rgba(9, 13, 22, 0) 70%);
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.03) 0%, rgba(248, 250, 252, 0) 70%);
   bottom: -100px;
   right: -100px;
   z-index: -1;
   pointer-events: none;
 }
 
-/* Glassmorphism Classes */
+/* Glassmorphism Classes (Light Mode) */
 .glass-panel {
-  background: rgba(17, 24, 39, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .glass-card {
-  background: rgba(17, 24, 39, 0.4);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(226, 232, 240, 0.5);
   transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.2);
-  background: rgba(17, 24, 39, 0.6);
+  border-color: rgba(37, 99, 235, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.02), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+}
+
+/* Drawer Animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
 }
