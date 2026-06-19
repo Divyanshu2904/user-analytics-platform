@@ -219,21 +219,21 @@ export default function DashboardPage() {
             <div className="flex justify-between items-start mb-3">
               <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Devices</span>
             </div>
-            <div className="grid grid-cols-3 gap-2 mt-2">
-              <div className="flex flex-col items-center p-2 rounded-xl bg-slate-50 border border-slate-100/50">
-                <Laptop className="h-4.5 w-4.5 text-blue-500 mb-1" />
-                <span className="text-sm font-extrabold text-slate-800">{desktopCount}</span>
-                <span className="text-[8px] text-slate-400 font-bold uppercase mt-0.5">Desktop</span>
+            <div className="grid grid-cols-3 gap-1 md:gap-2 mt-2">
+              <div className="flex flex-col items-center p-1.5 md:p-2 rounded-xl bg-slate-50 border border-slate-100/50 min-w-0">
+                <Laptop className="h-4 w-4 md:h-4.5 md:w-4.5 text-blue-500 mb-1 flex-shrink-0" />
+                <span className="text-xs md:text-sm font-extrabold text-slate-800">{desktopCount}</span>
+                <span className="text-[7px] md:text-[8px] text-slate-400 font-bold uppercase mt-0.5 tracking-wider truncate w-full text-center">Desktop</span>
               </div>
-              <div className="flex flex-col items-center p-2 rounded-xl bg-slate-50 border border-slate-100/50">
-                <Smartphone className="h-4.5 w-4.5 text-cyan-500 mb-1" />
-                <span className="text-sm font-extrabold text-slate-800">{mobileCount}</span>
-                <span className="text-[8px] text-slate-400 font-bold uppercase mt-0.5">Mobile</span>
+              <div className="flex flex-col items-center p-1.5 md:p-2 rounded-xl bg-slate-50 border border-slate-100/50 min-w-0">
+                <Smartphone className="h-4 w-4 md:h-4.5 md:w-4.5 text-cyan-500 mb-1 flex-shrink-0" />
+                <span className="text-xs md:text-sm font-extrabold text-slate-800">{mobileCount}</span>
+                <span className="text-[7px] md:text-[8px] text-slate-400 font-bold uppercase mt-0.5 tracking-wider truncate w-full text-center">Mobile</span>
               </div>
-              <div className="flex flex-col items-center p-2 rounded-xl bg-slate-50 border border-slate-100/50">
-                <Tablet className="h-4.5 w-4.5 text-amber-500 mb-1" />
-                <span className="text-sm font-extrabold text-slate-800">{tabletCount}</span>
-                <span className="text-[8px] text-slate-400 font-bold uppercase mt-0.5">Tablet</span>
+              <div className="flex flex-col items-center p-1.5 md:p-2 rounded-xl bg-slate-50 border border-slate-100/50 min-w-0">
+                <Tablet className="h-4 w-4 md:h-4.5 md:w-4.5 text-amber-500 mb-1 flex-shrink-0" />
+                <span className="text-xs md:text-sm font-extrabold text-slate-800">{tabletCount}</span>
+                <span className="text-[7px] md:text-[8px] text-slate-400 font-bold uppercase mt-0.5 tracking-wider truncate w-full text-center">Tablet</span>
               </div>
             </div>
           </div>
@@ -252,12 +252,12 @@ export default function DashboardPage() {
             />
           </div>
 
-          <div className="flex items-center gap-2.5 w-full md:w-auto self-stretch md:self-auto justify-between md:justify-start">
+          <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto self-stretch md:self-auto justify-between md:justify-start">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
               <SlidersHorizontal className="h-3.5 w-3.5" />
               Device:
             </span>
-            <div className="flex p-1 bg-slate-50 border border-slate-200 rounded-xl">
+            <div className="flex p-0.5 md:p-1 bg-slate-50 border border-slate-200 rounded-xl max-w-full overflow-x-auto no-scrollbar">
               {[
                 { label: "All", value: "all" },
                 { label: "Desktop", value: "desktop" },
@@ -267,7 +267,7 @@ export default function DashboardPage() {
                 <button
                   key={tab.value}
                   onClick={() => setDeviceFilter(tab.value)}
-                  className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`px-2.5 py-1 md:px-4 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                     deviceFilter === tab.value 
                       ? "bg-blue-600 text-white shadow-sm shadow-blue-600/10" 
                       : "text-slate-500 hover:text-slate-800"

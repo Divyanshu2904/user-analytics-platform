@@ -82,6 +82,22 @@ nav {
   justify-self: center;
 }
 
+@media (max-width: 640px) {
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    align-items: center;
+  }
+  .logo {
+    justify-self: center;
+  }
+  nav ul {
+    gap: 1.25rem !important;
+  }
+}
+
 .logo span {
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   -webkit-background-clip: text;
